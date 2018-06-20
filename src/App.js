@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getGames } from './actions';
+import './App.css';
 
 class App extends Component {
   componentDidMount() {
@@ -14,16 +15,19 @@ class App extends Component {
     const { games } = this.props;
 
     return (
-      <React.Fragment>
+      <div className="App">
+        <h2 className="App__title">
+          {new Date().toJSON().slice(0, 10)} World Cup Games
+        </h2>
         {games && games.map(game => (
-          <React.Fragment>
-            <h2>{`${game.venue} - ${game.location}, ${game.datetime}`}</h2>
-            <h3>{game.home_team.code}: {game.home_team.goals}</h3>
-            <h3>{game.away_team.code}: {game.away_team.goals}</h3>
+          <div className="App__game">
+            <h3>{`${game.venue} - ${game.location}, ${game.datetime}`}</h3>
+            <h4>{game.home_team.code}: {game.home_team.goals}</h4>
+            <h4>{game.away_team.code}: {game.away_team.goals}</h4>
             <br />
-          </React.Fragment>
+          </div>
         ))}
-      </React.Fragment>
+      </div>
     );
   }
 };
