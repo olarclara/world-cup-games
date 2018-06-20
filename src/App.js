@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getGames } from './actions';
+import countryFlag from './utils/country-flag';
 import './App.css';
 
 class App extends Component {
@@ -31,10 +32,20 @@ class App extends Component {
           </div>
         )}
         {games && games.map(game => (
-          <div className="App__game">
-            <h3>{`${game.venue} - ${game.location}, ${game.datetime}`}</h3>
-            <h4>{game.home_team.code}: {game.home_team.goals}</h4>
-            <h4>{game.away_team.code}: {game.away_team.goals}</h4>
+          <div className="App__game" key={game.fifa_id}>
+            <h3>{`${game.venue} - ${game.location}, ${game.datetime.slice(11)}`}</h3>
+            <h4>
+              <span>
+                {countryFlag[game.home_team.code]}
+              </span>
+              {game.home_team.code}: {game.home_team.goals}
+            </h4>
+            <h4>
+              <span>
+                {countryFlag[game.away_team.code]}
+              </span>
+              {game.away_team.code}: {game.away_team.goals}
+            </h4>
             <br />
           </div>
         ))}
