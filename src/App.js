@@ -12,13 +12,24 @@ class App extends Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { error, fetching, games } = this.props;
 
     return (
       <div className="App">
         <h2 className="App__title">
           {new Date().toJSON().slice(0, 10)} World Cup Games
         </h2>
+        {fetching && (
+          <div className="App__fetching">
+            <h3>Loading...</h3>
+          </div>
+        )}
+        {error && (
+          <div className="App__error">
+            <h3>Ops, something went wrong...</h3>
+            <button>Try again!</button>
+          </div>
+        )}
         {games && games.map(game => (
           <div className="App__game">
             <h3>{`${game.venue} - ${game.location}, ${game.datetime}`}</h3>
