@@ -16,7 +16,12 @@ class App extends Component {
     return (
       <React.Fragment>
         {games && games.map(game => (
-          <div>{JSON.stringify(game)}</div>
+          <React.Fragment>
+            <h2>{`${game.venue} - ${game.location}, ${game.datetime}`}</h2>
+            <h3>{game.home_team.code}: {game.home_team.goals}</h3>
+            <h3>{game.away_team.code}: {game.away_team.goals}</h3>
+            <br />
+          </React.Fragment>
         ))}
       </React.Fragment>
     );
