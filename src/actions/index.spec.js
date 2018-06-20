@@ -1,8 +1,8 @@
-
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import games from '../__test-helpers__/games';
+import fetch from '../__test-helpers__/fetch';
 import {
   START_FETCHING,
   THROW_ERROR,
@@ -16,19 +16,6 @@ const store = mockStore({
   fetching: false,
   games: [],
 });
-
-function mockFetch(data) {
-  return jest.fn().mockImplementation(() =>
-    Promise.resolve({
-      ok: true,
-      json: () => data
-    })
-  );
-}
-
-function mockFailingFetch() {
-  return jest.fn().mockImplementation(() => Promise.reject({ error: 'ops, something went wrong' }));
-}
 
 describe('action creators', () => {
   it('startFetching should dispatch a START_FETCHING action', () => {
@@ -49,7 +36,7 @@ describe('action creators', () => {
   afterEach(() => store.clearActions());
 
   it('successful getGames calls startFetching and updateGames', async () => {
-    window.fetch = mockFetch(games);
+    window.fetch = fetch.successful(games);
 
     const expectedActions = [
       { type: START_FETCHING },
@@ -61,7 +48,7 @@ describe('action creators', () => {
   });
 
   it('failing getGames calls startFetching and throwError', async () => {
-    window.fetch = mockFailingFetch();
+    window.fetch = fetch.failing();
 
     const expectedActions = [
       { type: START_FETCHING },
