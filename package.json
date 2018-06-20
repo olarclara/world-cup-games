@@ -17,7 +17,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "redux-mock-store": "^1.5.3",
-    "whatwg-fetch": "^2.0.4"
+    "redux-mock-store": "^1.5.3"
   }
 }
